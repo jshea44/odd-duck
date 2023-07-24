@@ -21,11 +21,10 @@ function Product(name, src) {
 }
 
 function getRandomNum() {
-  Math.floor(Math.random() * products.length);
+  return Math.floor(Math.random() * products.length);
 }
 
 function renderProducts() {
-  debugger;
  
   let product1 = getRandomNum();
   let product2 = getRandomNum();
