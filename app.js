@@ -8,7 +8,7 @@ let image3 = document.querySelector('section img:nth-child(3)');
 
 
 let clicks = 0;
-let maxClicksAllowed = 25;
+let maxClicksAllowed = 4;
 
 const products = [];
 
@@ -39,9 +39,9 @@ function renderProducts() {
   image2.alt = products[product2].name;
   image3.alt = products[product3].name;
 
-  products[product1].views++;
-  products[product2].views++;
-  products[product3].views++;
+  products[product1].timesSeen++;
+  products[product2].timesSeen++;
+  products[product3].timesSeen++;
 }
 
 function handleProductClick(event) {
@@ -52,7 +52,7 @@ function handleProductClick(event) {
   let clickProduct = event.target.alt;
   for (let i = 0; i < products.length; i++) {
     if (clickProduct === products[i].name) {
-      products[i].clicks++;
+      products[i].timesClicked++;
       break;
     }
   }
@@ -77,24 +77,24 @@ function renderResults() {
   }
 }
 
-let banana = new Product('Banana', './images/banana.jpg');
-let bathroom = new Product('Bathroom', './images/bathroom.jpg');
-let boots = new Product('Boots', './images/boots.jpg');
-let breakfast = new Product('Breakfast', './images/breakfast.jpg');
-let bubblegum = new Product('Bubblegum', './images/bubblegum.jpg');
-let chair = new Product('Chair', './images/chair.jpg');
-let cthulhu = new Product('Cthulhu', './images/cthulhu.jpg');
-let dogDuck = new Product('Dog Duck', './images/dog-duck.jpg');
-let dragon = new Product('Dragon', './images/dragon.jpg');
-let pen = new Product('Pen', './images/pen.jpg');
-let petSweep = new Product('Pet Sweep', './images/pet-sweep.jpg');
-let scissors = new Product('Scissors', './images/scissors.jpg');
-let shark = new Product('Shark', './images/shark.jpg');
-let sweep = new Product('Sweep', './images/sweep.png');
-let tauntaun = new Product('Tauntaun', './images/tauntaun.jpg');
-let unicord = new Product('Unicorn', './images/unicorn.jpg');
-let waterCan = new Product('Water Can', './images/water-can.jpg');
-let wineGlass = new Product('Wine Glass', './images/wine-glass.jpg');
+let banana = new Product('banana', './images/banana.jpg');
+let bathroom = new Product('bathroom', './images/bathroom.jpg');
+let boots = new Product('boots', './images/boots.jpg');
+let breakfast = new Product('breakfast', './images/breakfast.jpg');
+let bubblegum = new Product('bubblegum', './images/bubblegum.jpg');
+let chair = new Product('chair', './images/chair.jpg');
+let cthulhu = new Product('cthulhu', './images/cthulhu.jpg');
+let dogDuck = new Product('dog-duck', './images/dog-duck.jpg');
+let dragon = new Product('dragon', './images/dragon.jpg');
+let pen = new Product('pen', './images/pen.jpg');
+let petSweep = new Product('pet-sweep', './images/pet-sweep.jpg');
+let scissors = new Product('scissors', './images/scissors.jpg');
+let shark = new Product('shark', './images/shark.jpg');
+let sweep = new Product('sweep', './images/sweep.png');
+let tauntaun = new Product('tauntaun', './images/tauntaun.jpg');
+let unicord = new Product('unicorn', './images/unicorn.jpg');
+let waterCan = new Product('water-can', './images/water-can.jpg');
+let wineGlass = new Product('wine-glass', './images/wine-glass.jpg');
 
 
 
