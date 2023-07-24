@@ -1,0 +1,21 @@
+header h1 {
+  display: flex;
+  font-size: x-large;
+  justify-content: center;
+}
+
+div h2 {
+  display: flex;
+  font-size: large;
+  justify-content: center;
+}
+
+main section {
+  display: flex;
+  justify-content: center;
+}
+
+.img {
+  max-height: 250px;
+  max-width: 250px;
+}

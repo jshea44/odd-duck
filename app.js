@@ -8,7 +8,7 @@ let image3 = document.querySelector('section img:nth-child(3)');
 
 
 let clicks = 0;
-let maxClicksAllowed = 4;
+let maxClicksAllowed = 25;
 
 const products = [];
 
@@ -29,6 +29,13 @@ function renderProducts() {
   let product1 = getRandomNum();
   let product2 = getRandomNum();
   let product3 = getRandomNum();
+
+  while (product1 === product2 || product1 === product3) {
+    product1.getRandomNum();
+  }
+  while (product2 === product3) {
+    product2.getRandomNum();
+  }
 
   
   image1.src = products[product1].src;
@@ -72,7 +79,7 @@ function renderResults() {
   let ul = document.querySelector('ul');
   for (let i = 0; i < products.length; i++) {
     let li = document.createElement('li')
-    li.textContent = `${products[i].name} had ${products[i].views} views and was clicked ${products[i].clicks} times.`;
+    li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
     ul.appendChild(li);
   }
 }
