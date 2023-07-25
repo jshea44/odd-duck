@@ -1,4 +1,4 @@
-'use-strict'
+'use-strict';
 
 let productContainer = document.querySelector('section');
 let resultButton = document.querySelector('section + button');
@@ -25,12 +25,17 @@ function getRandomNum() {
 }
 
 function renderProducts() {
- 
   let product1 = getRandomNum();
   let product2 = getRandomNum();
   let product3 = getRandomNum();
 
-  
+  while (product1 === product2 || product1 === product3) {
+    product1.getRandomNum();
+  }
+  while (product2 === product3) {
+    product2.getRandomNum();
+  }
+
   image1.src = products[product1].src;
   image2.src = products[product2].src;
   image3.src = products[product3].src;
@@ -39,9 +44,9 @@ function renderProducts() {
   image2.alt = products[product2].name;
   image3.alt = products[product3].name;
 
-  products[product1].views++;
-  products[product2].views++;
-  products[product3].views++;
+  products[product1].timesSeen++;
+  products[product2].timesSeen++;
+  products[product3].timesSeen++;
 }
 
 function handleProductClick(event) {
@@ -52,14 +57,12 @@ function handleProductClick(event) {
   let clickProduct = event.target.alt;
   for (let i = 0; i < products.length; i++) {
     if (clickProduct === products[i].name) {
-      products[i].clicks++;
+      products[i].timesClicked++;
       break;
     }
   }
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
-    // give the button an event lister and styles so the user
-    // knows its an active button:
     resultButton.addEventListener('click', renderResults);
     resultButton.className = 'clicks-allowed';
     productContainer.className = 'no-voting';
@@ -71,30 +74,30 @@ function handleProductClick(event) {
 function renderResults() {
   let ul = document.querySelector('ul');
   for (let i = 0; i < products.length; i++) {
-    let li = document.createElement('li')
-    li.textContent = `${products[i].name} had ${products[i].views} views and was clicked ${products[i].clicks} times.`;
+    let li = document.createElement('li');
+    li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
     ul.appendChild(li);
   }
 }
 
-let banana = new Product('Banana', './images/banana.jpg');
-let bathroom = new Product('Bathroom', './images/bathroom.jpg');
-let boots = new Product('Boots', './images/boots.jpg');
-let breakfast = new Product('Breakfast', './images/breakfast.jpg');
-let bubblegum = new Product('Bubblegum', './images/bubblegum.jpg');
-let chair = new Product('Chair', './images/chair.jpg');
-let cthulhu = new Product('Cthulhu', './images/cthulhu.jpg');
-let dogDuck = new Product('Dog Duck', './images/dog-duck.jpg');
-let dragon = new Product('Dragon', './images/dragon.jpg');
-let pen = new Product('Pen', './images/pen.jpg');
-let petSweep = new Product('Pet Sweep', './images/pet-sweep.jpg');
-let scissors = new Product('Scissors', './images/scissors.jpg');
-let shark = new Product('Shark', './images/shark.jpg');
-let sweep = new Product('Sweep', './images/sweep.png');
-let tauntaun = new Product('Tauntaun', './images/tauntaun.jpg');
-let unicord = new Product('Unicorn', './images/unicorn.jpg');
-let waterCan = new Product('Water Can', './images/water-can.jpg');
-let wineGlass = new Product('Wine Glass', './images/wine-glass.jpg');
+let banana = new Product('banana', './images/banana.jpg');
+let bathroom = new Product('bathroom', './images/bathroom.jpg');
+let boots = new Product('boots', './images/boots.jpg');
+let breakfast = new Product('breakfast', './images/breakfast.jpg');
+let bubblegum = new Product('bubblegum', './images/bubblegum.jpg');
+let chair = new Product('chair', './images/chair.jpg');
+let cthulhu = new Product('cthulhu', './images/cthulhu.jpg');
+let dogDuck = new Product('dog-duck', './images/dog-duck.jpg');
+let dragon = new Product('dragon', './images/dragon.jpg');
+let pen = new Product('pen', './images/pen.jpg');
+let petSweep = new Product('pet-sweep', './images/pet-sweep.jpg');
+let scissors = new Product('scissors', './images/scissors.jpg');
+let shark = new Product('shark', './images/shark.jpg');
+let sweep = new Product('sweep', './images/sweep.png');
+let tauntaun = new Product('tauntaun', './images/tauntaun.jpg');
+let unicord = new Product('unicorn', './images/unicorn.jpg');
+let waterCan = new Product('water-can', './images/water-can.jpg');
+let wineGlass = new Product('wine-glass', './images/wine-glass.jpg');
 
 
 
