@@ -1,4 +1,4 @@
-'use-strict'
+'use-strict';
 
 let productContainer = document.querySelector('section');
 let resultButton = document.querySelector('section + button');
@@ -25,7 +25,6 @@ function getRandomNum() {
 }
 
 function renderProducts() {
- 
   let product1 = getRandomNum();
   let product2 = getRandomNum();
   let product3 = getRandomNum();
@@ -37,7 +36,6 @@ function renderProducts() {
     product2.getRandomNum();
   }
 
-  
   image1.src = products[product1].src;
   image2.src = products[product2].src;
   image3.src = products[product3].src;
@@ -65,8 +63,6 @@ function handleProductClick(event) {
   }
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
-    // give the button an event lister and styles so the user
-    // knows its an active button:
     resultButton.addEventListener('click', renderResults);
     resultButton.className = 'clicks-allowed';
     productContainer.className = 'no-voting';
@@ -78,7 +74,7 @@ function handleProductClick(event) {
 function renderResults() {
   let ul = document.querySelector('ul');
   for (let i = 0; i < products.length; i++) {
-    let li = document.createElement('li')
+    let li = document.createElement('li');
     li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
     ul.appendChild(li);
   }
