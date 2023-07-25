@@ -19,8 +19,8 @@ main section {
 }
 
 .img {
-  max-height: 250px;
-  max-width: 250px;
+  height: 250px;
+  width: 250px;
   border: thin solid black;
   margin: 10px;
 }
