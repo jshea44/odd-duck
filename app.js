@@ -10,6 +10,7 @@ let chartCanvas = document.getElementById('myChart');
 
 let clicks = 0;
 let maxClicksAllowed = 5;
+let lastImages = new Array(3);
 
 const products = [];
 
@@ -21,7 +22,6 @@ function Product(name, src) {
   products.push(this);
 }
 
-let lastImages = [];
 function getRandomNum() {
   // const random = 
   return Math.floor(Math.random() * products.length);
@@ -42,17 +42,32 @@ function renderProducts() {
   let product1 = getRandomNum();
   let product2 = getRandomNum();
   let product3 = getRandomNum();
-  lastImages.push(product1);
-  lastImages.push(product2);
-  lastImages.push(product3);
 
+  
 
+  
   while ((product1 === product2 || product1 === product3)) {
     product1 = getRandomNum();
   }
   while ((product2 === product3 || product2 === product1)) {
     product2 = getRandomNum();
   }
+ 
+  if (lastImages < 3) {
+    while (lastImages.includes(product1)) {
+      product1 = getRandomNum();
+    }
+    while(lastImages.includes(product2) || product2 === product1) {
+      product2 = getRandomNum();
+    }
+    while (lastImages.includes(product3) || product3 === product1 || product3 === product2) {
+      product3 = getRandomNum();
+    }
+  }
+
+  lastImages[0] = product1;
+  lastImages[1] = product2;
+  lastImages[2] = product3;
 
   image1.src = products[product1].src;
   image2.src = products[product2].src;
@@ -81,27 +96,26 @@ function handleProductClick(event) {
   }
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
-    resultButton.addEventListener('click', renderResults);
+    // resultButton.addEventListener('click', renderResults);
     // resultButton.className = 'clicks-allowed';
     // productContainer.className = 'no-voting';
-    renderChart();
+    // renderChart();
   } else {
     renderProducts();
   }
 }
 
-function renderResults() {
-  // let ul = document.querySelector('ul');
-  for (let i = 0; i < products.length; i++) {
-    let li = document.createElement('li');
-    li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
-    // ul.appendChild(li);
-  }
-}
+// function renderResults() {
+//   // let ul = document.querySelector('ul');
+//   for (let i = 0; i < products.length; i++) {
+//     let li = document.createElement('li');
+//     li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
+//     // ul.appendChild(li);
+//   }
+// }
 
 let chartObj = null;
 resultButton.addEventListener('click', function() {
-  // chartObj.destroy();
   chartObj = renderChart();
   // chartObj.data.datasets[0].data[0] = 10;
   console.log(chartObj);
@@ -120,29 +134,26 @@ function renderChart() {
   }
 
   return new Chart(chartCanvas, {
-    labels: productNames,
-    datasets: [{
-      label: 'Likes',
-      data: productLikes,
-      backgroundColor: [
-        'rgba(255, 99, 132, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 99, 132)'
-      ],
-      borderWidth: 1
+    type: 'bar',
+    data: {
+      labels: productNames,
+      datasets: [{
+        label: 'Views',
+        data: productViews,
+        borderWidth: 1
+      }, {
+        label: 'Likes',
+        data: productLikes,
+        borderWidth: 1
+      }]
     },
-    {
-      label: 'Views',
-      data: productViews,
-      backgroundColor: [
-        'rgba(255, 159, 64, 0.2)'
-      ],
-      borderColor: [
-        'rgb(255, 159, 64)'
-      ],
-      borderWidth: 1
-    }]
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
   });
 }
 
