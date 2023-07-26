@@ -5,10 +5,11 @@ let resultButton = document.querySelector('section + button');
 let image1 = document.querySelector('section img:first-child');
 let image2 = document.querySelector('section img:nth-child(2)');
 let image3 = document.querySelector('section img:nth-child(3)');
+let chartCanvas = document.getElementById('myChart');
 
 
 let clicks = 0;
-let maxClicksAllowed = 25;
+let maxClicksAllowed = 5;
 
 const products = [];
 
@@ -20,20 +21,37 @@ function Product(name, src) {
   products.push(this);
 }
 
+let lastImages = [];
 function getRandomNum() {
+  // const random = 
   return Math.floor(Math.random() * products.length);
+
+  // if (lastImages.includes(random)) {
+  //   return getRandomNum();
+  // }
+  // lastImages.push(random);
+
+  // if (lastImages.length > 3) {
+  //   lastImages = [];
+  // }
+
+  // return random;
 }
 
 function renderProducts() {
   let product1 = getRandomNum();
   let product2 = getRandomNum();
   let product3 = getRandomNum();
+  lastImages.push(product1);
+  lastImages.push(product2);
+  lastImages.push(product3);
 
-  while (product1 === product2 || product1 === product3) {
-    product1.getRandomNum();
+
+  while ((product1 === product2 || product1 === product3)) {
+    product1 = getRandomNum();
   }
-  while (product2 === product3 || product2 === product1) {
-    product2.getRandomNum();
+  while ((product2 === product3 || product2 === product1)) {
+    product2 = getRandomNum();
   }
 
   image1.src = products[product1].src;
@@ -64,21 +82,70 @@ function handleProductClick(event) {
   if (clicks === maxClicksAllowed) {
     productContainer.removeEventListener('click', handleProductClick);
     resultButton.addEventListener('click', renderResults);
-    resultButton.className = 'clicks-allowed';
-    productContainer.className = 'no-voting';
+    // resultButton.className = 'clicks-allowed';
+    // productContainer.className = 'no-voting';
+    renderChart();
   } else {
     renderProducts();
   }
 }
 
 function renderResults() {
-  let ul = document.querySelector('ul');
+  // let ul = document.querySelector('ul');
   for (let i = 0; i < products.length; i++) {
     let li = document.createElement('li');
     li.textContent = `${products[i].name} had ${products[i].timesSeen} views and was clicked ${products[i].timesClicked} times.`;
-    ul.appendChild(li);
+    // ul.appendChild(li);
   }
 }
+
+let chartObj = null;
+resultButton.addEventListener('click', function() {
+  // chartObj.destroy();
+  chartObj = renderChart();
+  // chartObj.data.datasets[0].data[0] = 10;
+  console.log(chartObj);
+  chartObj.update();
+});
+
+function renderChart() {
+  let productNames = [];
+  let productLikes = [];
+  let productViews = [];
+
+  for (let i = 0; i < products.length; i++) {
+    productNames.push(products[i].name);
+    productLikes.push(products[i].timesClicked);
+    productViews.push(products[i].timesSeen);
+  }
+
+  return new Chart(chartCanvas, {
+    labels: productNames,
+    datasets: [{
+      label: 'Likes',
+      data: productLikes,
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)'
+      ],
+      borderWidth: 1
+    },
+    {
+      label: 'Views',
+      data: productViews,
+      backgroundColor: [
+        'rgba(255, 159, 64, 0.2)'
+      ],
+      borderColor: [
+        'rgb(255, 159, 64)'
+      ],
+      borderWidth: 1
+    }]
+  });
+}
+
 
 new Product('banana', './images/banana.jpg');
 new Product('bathroom', './images/bathroom.jpg');

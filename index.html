@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Odd Duck Products</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
 </head>
@@ -13,21 +14,25 @@
   </header>
   <main>
     <div>
-
+      
       <div>
         <h2>Please Choose a Product</h2>
       </div>
-
+      
       <section>
         <img class="img">
         <img class="img">
         <img class="img">
       </section>
-
-      <button>View Results</button>
-      <ul></ul>
+      
+      <button id="view-results">View Results</button>
+      <!-- <ul></ul> -->
     </div>
-
+    
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    
   </main>
   <script src="app.js"></script>
 </body>
