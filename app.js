@@ -101,6 +101,7 @@ function renderResults() {
 
 let chartObj = null;
 resultButton.addEventListener('click', function() {
+  // chartObj.destroy();
   chartObj = renderChart();
   // chartObj.data.datasets[0].data[0] = 10;
   console.log(chartObj);
