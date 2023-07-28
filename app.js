@@ -1,4 +1,5 @@
 'use-strict';
+// global variables
 const products = load();
 let clicks = 0;
 let maxClicksAllowed = 25;
@@ -11,6 +12,7 @@ let image2 = document.querySelector('section img:nth-child(2)');
 let image3 = document.querySelector('section img:nth-child(3)');
 let chartCanvas = document.getElementById('myChart');
 
+//constructor for each product object
 function Product(name, src) {
   this.name = name;
   this.src = src;
@@ -53,6 +55,7 @@ function renderProducts() {
   products[product3].timesSeen++;
 }
 
+// increments data collection for times clicked and clicks / renders new images on click
 function handleProductClick(event) {
   if (event.target === productContainer) {
     alert('Please click on an image');
@@ -73,13 +76,8 @@ function handleProductClick(event) {
   }
 }
 
-// let chartObj = null;
 resultButton.addEventListener('click', function() {
-  // chartObj = 
   renderChart();
-  // chartObj.data.datasets[0].data[0] = 10;
-  // console.log(chartObj);
-  // chartObj.update();
 });
 
 function renderChart() {
@@ -93,6 +91,7 @@ function renderChart() {
     productViews.push(products[i].timesSeen);
   }
 
+  // information for the chart
   return new Chart(chartCanvas, {
     type: 'bar',
     data: {
